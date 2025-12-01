@@ -8,10 +8,9 @@ INPUT_FILE = "./puzzles/1/input.txt"
 def parse_input(file=INPUT_FILE) -> List[int]:
     """Reads the input file and parses it into a usable format."""
 
-    file = open(file, "r", encoding="utf-8")
-    lines = file.readlines()
-    puzzle_input = [(-1 if line[0] == "L" else 1) * int(line[1:]) for line in lines]
-    file.close()
+    with open(file, "r", encoding="utf-8") as file:
+        lines = file.readlines()
+        puzzle_input = [(-1 if line[0] == "L" else 1) * int(line[1:]) for line in lines]
     return puzzle_input
 
 

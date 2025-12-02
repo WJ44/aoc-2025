@@ -1,5 +1,6 @@
 """Abstraction for Advent of Code puzzles."""
 
+import unittest
 from abc import ABC, abstractmethod
 from contextlib import contextmanager
 from pathlib import Path
@@ -22,7 +23,8 @@ class Puzzle(ABC):
         Args:
             puzzle: The puzzle instance to register.
         """
-        cls.puzzles[puzzle.day] = puzzle
+        if puzzle.day > 0:
+            cls.puzzles[puzzle.day] = puzzle
 
     def __init_subclass__(cls):
         super().__init_subclass__()
@@ -97,3 +99,37 @@ class Puzzle(ABC):
             print(f"Solution to part one: \n {part_one}")
             print(f"Solution to part two: \n {part_two}")
             print("")
+
+class BasePuzzleTest(unittest.TestCase):
+    """
+    Base test class for testing Advent of Code puzzles.
+    """
+    day: int
+    expected_part_one: Optional[int] = None
+    expected_part_two: Optional[int] = None
+    test_file: str = "test1.txt"
+
+    def setUp(self):
+        """Set up the test by loading the puzzle and parsing test input."""
+        if not hasattr(self, 'day'):
+            self.skipTest("Day not specified in test class")
+
+        self.puzzle = Puzzle.puzzles[self.day]
+        with self.puzzle.open_input_file(file_name=self.test_file) as file:
+            self.puzzle_input = self.puzzle.parse_input(file)
+
+    def test_part_one(self):
+        """Test part one solution with example input."""
+        if self.expected_part_one is None:
+            self.skipTest("Expected result for part one not set")
+
+        result = self.puzzle.solve_part_one(self.puzzle_input)
+        self.assertEqual(result, self.expected_part_one)
+
+    def test_part_two(self):
+        """Test part two solution with example input."""
+        if self.expected_part_two is None:
+            self.skipTest("Expected result for part two not set")
+
+        result = self.puzzle.solve_part_two(self.puzzle_input)
+        self.assertEqual(result, self.expected_part_two)

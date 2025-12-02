@@ -5,3 +5,7 @@
 
 puzzles/*/*.txt
 !puzzles/*/test*.txt
+
+__pycache__/
+
+.mypy_cache/

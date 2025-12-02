@@ -4,6 +4,7 @@ Download input for a given day of Advent of Code 2025.
 
 import argparse
 import os
+from pathlib import Path
 
 import requests
 from dotenv import load_dotenv
@@ -27,16 +28,17 @@ def download(day: int, overwrite: bool = False, quiet: bool = False) -> None:
                             timeout=10)
     response.raise_for_status()
 
-    os.makedirs(f"puzzles/day{day:02d}", exist_ok=True)
+    os.makedirs(Path(f"puzzles/day{day:02d}"), exist_ok=True)
 
-    file_path = f"puzzles/day{day:02d}/input.txt"
-    if not overwrite and os.path.exists(file_path):
+    file_path = Path(f"puzzles/day{day:02d}/input.txt")
+    if not overwrite and file_path.exists():
         if not quiet:
             print(f"Input for day {day} already exists. Use --overwrite to replace it.")
         return
 
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(response.text)
+        print(f"Downloaded input for day {day}.")
 
 
 def main() -> None:

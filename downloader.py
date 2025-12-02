@@ -20,7 +20,9 @@ def download(day: int, overwrite: bool = False, quiet: bool = False) -> None:
     """
     url = f"https://adventofcode.com/2025/day/{day}/input"
     session_token = os.getenv("SESSION", "")
-    response = requests.get(url, headers={"User-Agent": "github.com/WJ44/aoc-2025 by git@wjoosten.nl"},
+    repository_url = os.getenv("REPOSITORY_URL", "")
+    contact_email = os.getenv("CONTACT_EMAIL", "")
+    response = requests.get(url, headers={"User-Agent": f"{repository_url} by {contact_email}"},
                             cookies={"session": session_token},
                             timeout=10)
     response.raise_for_status()

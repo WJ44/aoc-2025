@@ -3,7 +3,7 @@
 from abc import ABC, abstractmethod
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Optional
+from typing import Any, Optional
 
 
 class Puzzle(ABC):
@@ -19,7 +19,8 @@ class Puzzle(ABC):
         """
         Register a puzzle.
         
-        :param puzzle: The puzzle instance to register.
+        Args:
+            puzzle: The puzzle instance to register.
         """
         cls.puzzles[puzzle.day] = puzzle
 
@@ -32,8 +33,12 @@ class Puzzle(ABC):
         """
         Context manager to open the input file.
         
-        :param file_name: The name of the input file. Defaults to "input.txt".
-        :param file_path: The path to the input file. Defaults to "./puzzles/{day}/input.txt".
+        Args:
+            file_name: The name of the input file. Defaults to "input.txt".
+            file_path: The path to the input file. Defaults to "./puzzles/{day}/input.txt".
+        
+        Raises:
+            ValueError: If both file_name and file_path are provided.
         """
         if file_name and file_path:
             raise ValueError("Specify either file_name or file_path, not both.")
@@ -52,23 +57,26 @@ class Puzzle(ABC):
         """
         Parse the input file.
         
-        :param file: The input file object.
+        Args:
+            file: The input file object.
         """
 
     @abstractmethod
-    def solve_part_one(self, puzzle_input) -> int:
+    def solve_part_one(self, puzzle_input: Any) -> int:
         """
         Solve part one of the day.
         
-        :param puzzle_input: The parsed input for the puzzle.
+        Args:
+            puzzle_input: The parsed input for the puzzle.
         """
 
     @abstractmethod
-    def solve_part_two(self, puzzle_input) -> int:
+    def solve_part_two(self, puzzle_input: Any) -> int:
         """
         Solve part two of the day.
         
-        :param puzzle_input: The parsed input for the puzzle.
+        Args:
+            puzzle_input: The parsed input for the puzzle.
         """
 
     def print_solutions(self, file_name: Optional[str] = None,
@@ -76,8 +84,9 @@ class Puzzle(ABC):
         """
         Print the solutions for both parts of the puzzle.
         
-        :param file_name: The name of the input file.
-        :param file_path: The path to the input file.
+        Args:
+            file_name: The name of the input file.
+            file_path: The path to the input file.
         """
         with self.open_input_file(file_name=file_name, file_path=file_path) as file:
             puzzle_input = self.parse_input(file)

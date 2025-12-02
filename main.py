@@ -13,7 +13,7 @@ def main():
     Run all puzzles, download input if necessary, and print their solutions.
     """
     for day, puzzle in Puzzle.puzzles.items():
-        download(day)
+        download(day, quiet=True)
         puzzle.print_solutions()
 
 if __name__ == "__main__":

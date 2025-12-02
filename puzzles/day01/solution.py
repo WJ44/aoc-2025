@@ -1,14 +1,18 @@
 """Solution for day 1 of Advent of Code 2025."""
 
-from puzzles.puzzle import Puzzle
+if __name__ == "__main__":
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-DAY = 1
+from puzzles.puzzle import Puzzle  # pylint: disable=wrong-import-position
+
 
 class Puzzle1(Puzzle):
     """
     Solution for day 1 of Advent of Code 2025.
     """
-    day = DAY
+    day = 1
 
     def parse_input(self, file) -> list[int]:
         lines = file.readlines()

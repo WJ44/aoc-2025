@@ -9,16 +9,15 @@ import requests
 from dotenv import load_dotenv
 
 
-def download(day: int, overwrite: bool = False) -> None:
+def download(day: int, overwrite: bool = False, quiet: bool = False) -> None:
     """
     Download input for the given day and save it to a file.
     
-    :param day: Day of the advent calendar.
-    :type day: int
-    :param overwrite: Whether to overwrite existing input file.
-    :type overwrite: bool
+    Args:
+        day: Day of the advent calendar.
+        overwrite: Whether to overwrite existing input file.
+        quiet: Whether to suppress messages when file already exists.
     """
-
     url = f"https://adventofcode.com/2025/day/{day}/input"
     session_token = os.getenv("SESSION", "")
     response = requests.get(url, headers={"User-Agent": "github.com/WJ44/aoc-2025 by git@wjoosten.nl"},
@@ -30,7 +29,8 @@ def download(day: int, overwrite: bool = False) -> None:
 
     file_path = f"puzzles/day{day:02d}/input.txt"
     if not overwrite and os.path.exists(file_path):
-        print(f"Input for day {day} already exists. Use --overwrite to replace it.")
+        if not quiet:
+            print(f"Input for day {day} already exists. Use --overwrite to replace it.")
         return
 
     with open(file_path, "w", encoding="utf-8") as f:
@@ -41,7 +41,6 @@ def main() -> None:
     """
     Main function to parse arguments and download input.
     """
-
     parser = argparse.ArgumentParser()
     parser.add_argument("day", type=int, help="Day of the advent calendar")
     parser.add_argument(

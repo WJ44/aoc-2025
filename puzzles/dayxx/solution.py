@@ -27,6 +27,6 @@ class PuzzleX(Puzzle):
 
     def solve_part_two(self, puzzle_input: Any) -> int:
         return 0
-    
+
 if __name__ == "__main__":
     PuzzleX().print_solutions()

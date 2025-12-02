@@ -1,6 +1,7 @@
 .venv
 
-.env.*
+.env*
+!.env
 
 puzzles/*/*.txt
 !puzzles/*/test*.txt

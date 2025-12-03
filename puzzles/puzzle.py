@@ -3,6 +3,7 @@
 import unittest
 from abc import ABC, abstractmethod
 from contextlib import contextmanager
+from io import TextIOWrapper
 from pathlib import Path
 from typing import Any, Optional
 
@@ -12,14 +13,14 @@ class Puzzle(ABC):
     Abstraction for Advent of Code puzzles.
     """
 
-    puzzles: dict[int, 'Puzzle'] = {}
+    puzzles: dict[int, "Puzzle"] = {}
     day: int
 
     @classmethod
-    def register_puzzle(cls, puzzle: 'Puzzle'):
+    def register_puzzle(cls, puzzle: "Puzzle"):
         """
         Register a puzzle.
-        
+
         Args:
             puzzle: The puzzle instance to register.
         """
@@ -31,14 +32,16 @@ class Puzzle(ABC):
         cls.register_puzzle(cls())
 
     @contextmanager
-    def open_input_file(self, file_name: Optional[str] = None, file_path: Optional[Path] = None):
+    def open_input_file(
+        self, file_name: Optional[str] = None, file_path: Optional[Path] = None
+    ):
         """
         Context manager to open the input file.
-        
+
         Args:
             file_name: The name of the input file. Defaults to "input.txt".
             file_path: The path to the input file. Defaults to "./puzzles/{day}/input.txt".
-        
+
         Raises:
             ValueError: If both file_name and file_path are provided.
         """
@@ -55,10 +58,10 @@ class Puzzle(ABC):
             yield file
 
     @abstractmethod
-    def parse_input(self, file):
+    def parse_input(self, file: TextIOWrapper) -> Any:
         """
         Parse the input file.
-        
+
         Args:
             file: The input file object.
         """
@@ -67,7 +70,7 @@ class Puzzle(ABC):
     def solve_part_one(self, puzzle_input: Any) -> int:
         """
         Solve part one of the day.
-        
+
         Args:
             puzzle_input: The parsed input for the puzzle.
         """
@@ -76,16 +79,17 @@ class Puzzle(ABC):
     def solve_part_two(self, puzzle_input: Any) -> int:
         """
         Solve part two of the day.
-        
+
         Args:
             puzzle_input: The parsed input for the puzzle.
         """
 
-    def print_solutions(self, file_name: Optional[str] = None,
-                        file_path: Optional[Path] = None) -> None:
+    def print_solutions(
+        self, file_name: Optional[str] = None, file_path: Optional[Path] = None
+    ) -> None:
         """
         Print the solutions for both parts of the puzzle.
-        
+
         Args:
             file_name: The name of the input file.
             file_path: The path to the input file.
@@ -100,10 +104,12 @@ class Puzzle(ABC):
             print(f"Solution to part two: \n {part_two}")
             print("")
 
+
 class BasePuzzleTest(unittest.TestCase):
     """
     Base test class for testing Advent of Code puzzles.
     """
+
     day: int
     expected_part_one: Optional[int] = None
     expected_part_two: Optional[int] = None
@@ -111,7 +117,7 @@ class BasePuzzleTest(unittest.TestCase):
 
     def setUp(self):
         """Set up the test by loading the puzzle and parsing test input."""
-        if not hasattr(self, 'day'):
+        if not hasattr(self, "day"):
             self.skipTest("Day not specified in test class")
 
         self.puzzle = Puzzle.puzzles[self.day]

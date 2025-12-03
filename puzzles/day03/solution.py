@@ -35,18 +35,12 @@ class Puzzle3(Puzzle):
     def solve_part_two(self, puzzle_input: Any) -> int:
         total_joltage = 0
         for bank in puzzle_input:
-            length = len(bank)
             joltage = 0
             pos = 0
             for n in range(12):
                 i, highest = max(
-                    enumerate(bank[pos:]),
-                    key=lambda x: (
-                        # pylint: disable=cell-var-from-loop
-                        1 if length - pos - x[0] >= 12 - n else 0,
-                        x[1],
-                        -x[0],
-                    ),
+                    enumerate(bank[pos : -(12 - n - 1) or None]),
+                    key=lambda x: (x[1], -x[0]),
                 )
                 joltage += highest * pow(10, 12 - n - 1)
                 pos += i + 1

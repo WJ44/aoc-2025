@@ -16,6 +16,7 @@ def main():
         download(day, quiet=True)
         puzzle.print_solutions()
 
+
 if __name__ == "__main__":
     load_dotenv()
     load_dotenv(".env.local", override=True)

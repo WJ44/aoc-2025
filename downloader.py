@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 def download(day: int, overwrite: bool = False, quiet: bool = False) -> None:
     """
     Download input for the given day and save it to a file.
-    
+
     Args:
         day: Day of the advent calendar.
         overwrite: Whether to overwrite existing input file.
@@ -23,9 +23,12 @@ def download(day: int, overwrite: bool = False, quiet: bool = False) -> None:
     session_token = os.getenv("SESSION", "")
     repository_url = os.getenv("REPOSITORY_URL", "")
     contact_email = os.getenv("CONTACT_EMAIL", "")
-    response = requests.get(url, headers={"User-Agent": f"{repository_url} by {contact_email}"},
-                            cookies={"session": session_token},
-                            timeout=10)
+    response = requests.get(
+        url,
+        headers={"User-Agent": f"{repository_url} by {contact_email}"},
+        cookies={"session": session_token},
+        timeout=10,
+    )
     response.raise_for_status()
 
     os.makedirs(Path(f"puzzles/day{day:02d}"), exist_ok=True)
@@ -55,7 +58,6 @@ def main() -> None:
     args = parser.parse_args()
     day = args.day
     overwrite = args.overwrite
-
 
     download(day, overwrite)
 

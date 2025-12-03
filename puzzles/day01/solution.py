@@ -3,6 +3,7 @@
 if __name__ == "__main__":
     import sys
     from pathlib import Path
+
     sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from puzzles.puzzle import Puzzle  # pylint: disable=wrong-import-position
@@ -12,6 +13,7 @@ class Puzzle1(Puzzle):
     """
     Solution for day 1 of Advent of Code 2025.
     """
+
     day = 1
 
     def parse_input(self, file) -> list[int]:
@@ -38,6 +40,7 @@ class Puzzle1(Puzzle):
                 zero_count += (position + rotation) // 100
             position = (position + rotation) % 100
         return zero_count
+
 
 if __name__ == "__main__":
     Puzzle1().print_solutions()

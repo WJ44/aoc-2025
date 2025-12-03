@@ -1,9 +1,11 @@
 """Solution for day 2 of Advent of Code 2025."""
+
 from math import ceil, floor, log
 
 if __name__ == "__main__":
     import sys
     from pathlib import Path
+
     sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from puzzles.puzzle import Puzzle  # pylint: disable=wrong-import-position
@@ -13,6 +15,7 @@ class Puzzle2(Puzzle):
     """
     Solution for day 2 of Advent of Code 2025.
     """
+
     day = 2
 
     def parse_input(self, file) -> list[tuple[int, int]]:
@@ -47,7 +50,9 @@ class Puzzle2(Puzzle):
                         continue
                     if exponents[-1] != n:
                         continue
-                    factor = sum(pow(10, exponent - exponents[0]) for exponent in exponents)
+                    factor = sum(
+                        pow(10, exponent - exponents[0]) for exponent in exponents
+                    )
                     for i in range(
                         max(pow(10, exponents[0]), ceil(lower / factor)),
                         min(pow(10, exponents[0] + 1) - 1, floor(upper / factor)) + 1,

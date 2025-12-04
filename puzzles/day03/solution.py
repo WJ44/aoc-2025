@@ -1,7 +1,5 @@
 """Solution for day 3 of Advent of Code 2025."""
 
-from typing import Any
-
 if __name__ == "__main__":
     import sys
     from pathlib import Path
@@ -23,7 +21,7 @@ class Puzzle3(Puzzle):
         puzzle_input = [[int(c) for c in line.strip()] for line in file.readlines()]
         return puzzle_input
 
-    def solve_part_one(self, puzzle_input: list[list[int]]) -> int:
+    def solve_part_one(self, puzzle_input: list[list[int]]):
         total_joltage = 0
         for bank in puzzle_input:
             i, highest = max(enumerate(bank[:-1]), key=lambda x: (x[1], -x[0]))
@@ -32,7 +30,7 @@ class Puzzle3(Puzzle):
             total_joltage += joltage
         return total_joltage
 
-    def solve_part_two(self, puzzle_input: list[list[int]]) -> int:
+    def solve_part_two(self, puzzle_input: list[list[int]]):
         total_joltage = 0
         for bank in puzzle_input:
             joltage = 0

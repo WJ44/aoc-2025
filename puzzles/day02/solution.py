@@ -25,7 +25,7 @@ class Puzzle2(Puzzle):
         ]
         return puzzle_input
 
-    def solve_part_one(self, puzzle_input: list[tuple[int, int]]) -> int:
+    def solve_part_one(self, puzzle_input: list[tuple[int, int]]):
         invalid_sum = 0
         for lower, upper in puzzle_input:
             for n in range(floor(log(lower, 10)), ceil(log(upper, 10))):
@@ -39,7 +39,7 @@ class Puzzle2(Puzzle):
                     invalid_sum += i * (pow(10, n + 1) + 1)
         return invalid_sum
 
-    def solve_part_two(self, puzzle_input: list[tuple[int, int]]) -> int:
+    def solve_part_two(self, puzzle_input: list[tuple[int, int]]):
         invalid_sum = 0
         for lower, upper in puzzle_input:
             invalid_ids = set()

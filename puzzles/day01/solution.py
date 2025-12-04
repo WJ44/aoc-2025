@@ -21,7 +21,7 @@ class Puzzle1(Puzzle):
         puzzle_input = [(-1 if line[0] == "L" else 1) * int(line[1:]) for line in lines]
         return puzzle_input
 
-    def solve_part_one(self, puzzle_input: list[int]) -> int:
+    def solve_part_one(self, puzzle_input: list[int]):
         position = 50
         zero_count = 0
         for rotation in puzzle_input:
@@ -30,7 +30,7 @@ class Puzzle1(Puzzle):
                 zero_count += 1
         return zero_count
 
-    def solve_part_two(self, puzzle_input: list[int]) -> int:
+    def solve_part_two(self, puzzle_input: list[int]):
         position = 50
         zero_count = 0
         for rotation in puzzle_input:

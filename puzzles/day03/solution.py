@@ -32,7 +32,7 @@ class Puzzle3(Puzzle):
             total_joltage += joltage
         return total_joltage
 
-    def solve_part_two(self, puzzle_input: Any) -> int:
+    def solve_part_two(self, puzzle_input: list[list[int]]) -> int:
         total_joltage = 0
         for bank in puzzle_input:
             joltage = 0

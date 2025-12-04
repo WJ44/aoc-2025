@@ -1,4 +1,4 @@
-"""Tests for Day 1 solution."""
+"""Tests for Day 3 solution."""
 
 if __name__ == "__main__":
     import sys

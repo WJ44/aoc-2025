@@ -1,4 +1,4 @@
-"""Tests for Day x solution."""
+"""Tests for Day 4 solution."""
 
 if __name__ == "__main__":
     import sys
@@ -10,11 +10,11 @@ from puzzles import puzzle  # pylint: disable=wrong-import-position
 
 
 class TestDayx(puzzle.BasePuzzleTest):
-    """Test Day x: Example test case."""
+    """Test Day 4: Example test case."""
 
-    # day = 0
-    expected_part_one = None
-    expected_part_two = None
+    day = 4
+    expected_part_one = 13
+    expected_part_two = 43
 
 
 if __name__ == "__main__":

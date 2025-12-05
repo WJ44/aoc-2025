@@ -1,6 +1,5 @@
 """Solution for day 5 of Advent of Code 2025."""
 
-import time
 from bisect import bisect_right
 from typing import Any
 

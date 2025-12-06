@@ -37,13 +37,17 @@ class Puzzle6(Puzzle):
             problem.append(column)
         return problems
 
-    def solve_part_one(self, puzzle_input: list[tuple[Callable[[int, int], int], list[tuple[str]]]]) -> int:
+    def solve_part_one(self,
+                       puzzle_input: list[tuple[Callable[[int, int], int], list[tuple[str]]]]) \
+        -> int:
         total = 0
         for operation, columns in puzzle_input:
             total += reduce(operation, [int("".join(row)) for row in zip(*columns)])
         return total
 
-    def solve_part_two(self, puzzle_input: list[tuple[Callable[[int, int], int], list[tuple[str]]]]) -> int:
+    def solve_part_two(self,
+                       puzzle_input: list[tuple[Callable[[int, int], int], list[tuple[str]]]]) \
+        -> int:
         total = 0
         for operation, columns in puzzle_input:
             total += reduce(operation, [int("".join(row)) for row in columns])

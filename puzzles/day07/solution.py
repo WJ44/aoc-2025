@@ -18,23 +18,26 @@ class Puzzle7(Puzzle):
 
     day = 7
 
-    def parse_input(self, file) -> tuple[tuple[int, int], set[tuple[int, int]], tuple[int, int]]:
+    def parse_input(
+        self, file
+    ) -> tuple[tuple[int, int], set[tuple[int, int]], tuple[int, int]]:
         splitters = set()
         start = (0, 0)
         bounds = (0, 0)
         for y, line in enumerate(file.readlines()):
             for x, c in enumerate(line.strip()):
-                bounds  = (y, x)
+                bounds = (y, x)
                 if c == "^":
                     splitters.add((y, x))
                     continue
-                elif c == "S":
+                if c == "S":
                     start = (y, x)
         return start, splitters, bounds
 
-    def solve_part_one(self,
-                       puzzle_input: tuple[tuple[int, int], set[tuple[int, int]], tuple[int, int]])\
-                        -> int:
+    def solve_part_one(
+        self,
+        puzzle_input: tuple[tuple[int, int], set[tuple[int, int]], tuple[int, int]],
+    ) -> int:
         start, splitters, bounds = puzzle_input
         splitters = splitters.copy()
         y, x = start
@@ -57,9 +60,10 @@ class Puzzle7(Puzzle):
             beams = new_beams
         return split_count
 
-    def solve_part_two(self,
-                       puzzle_input: tuple[tuple[int, int], set[tuple[int, int]], tuple[int, int]])\
-                        -> int:
+    def solve_part_two(
+        self,
+        puzzle_input: tuple[tuple[int, int], set[tuple[int, int]], tuple[int, int]],
+    ) -> int:
         start, splitters, bounds = puzzle_input
         splitters = splitters.copy()
         y, x = start

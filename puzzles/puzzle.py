@@ -32,9 +32,7 @@ class Puzzle(ABC):
         cls.register_puzzle(cls())
 
     @contextmanager
-    def open_input_file(
-        self, file_name: Optional[str] = None, file_path: Optional[Path] = None
-    ):
+    def open_input_file(self, file_name: Optional[str] = None, file_path: Optional[Path] = None):
         """
         Context manager to open the input file.
 

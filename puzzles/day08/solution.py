@@ -23,15 +23,16 @@ class Puzzle8(Puzzle):
 
     pairs_to_connect = 1000
 
-    def parse_input(self, file) -> set[tuple[int, int, int]]:
-        puzzle_input = [tuple(int(c) for c in line.strip().split(",")) for line in file.readlines()]
+    def parse_input(self, file) -> list[tuple[int, int, int]]:
+        lines = [line.strip().split(",") for line in file.readlines()]
+        puzzle_input = [(int(line[0]), int(line[1]), int(line[2])) for line in lines]
         return puzzle_input
 
     def solve_part_one(self, puzzle_input: Any) -> int:
         pairs = sorted(
             [
                 (
-                    sqrt((x_1 - x_2) ** 2 + (y_1 - y_2) ** 2 + (z_1 - z_2) ** 2),
+                    (x_1 - x_2) ** 2 + (y_1 - y_2) ** 2 + (z_1 - z_2) ** 2,
                     (x_1, y_1, z_1),
                     (x_2, y_2, z_2),
                 )
@@ -54,11 +55,11 @@ class Puzzle8(Puzzle):
         counts = sorted([len(circuit) for circuit in circuits], reverse=True)
         return counts[0] * counts[1] * counts[2]
 
-    def solve_part_two(self, puzzle_input: Any) -> int:
+    def solve_part_two(self, puzzle_input: list[tuple[int, int, int]]) -> int:
         pairs = sorted(
             [
                 (
-                    sqrt((x_1 - x_2) ** 2 + (y_1 - y_2) ** 2 + (z_1 - z_2) ** 2),
+                    (x_1 - x_2) ** 2 + (y_1 - y_2) ** 2 + (z_1 - z_2) ** 2,
                     (x_1, y_1, z_1),
                     (x_2, y_2, z_2),
                 )
@@ -67,7 +68,9 @@ class Puzzle8(Puzzle):
             key=lambda pair: pair[0],
         )
         circuits = []
-        while len(circuits) != 1 or sum(len(circuit) for circuit in circuits) < len(puzzle_input):
+        while len(circuits) != 1 or sum(len(circuit) for circuit in circuits) < len(
+            puzzle_input
+        ):
             _, box_1, box_2 = pairs.pop(0)
             new_circuit = {box_1, box_2}
             joined = []
@@ -78,7 +81,7 @@ class Puzzle8(Puzzle):
             for x in joined:
                 circuits.remove(x)
             circuits.append(new_circuit)
-        return box_1[0] * box_2[0]
+        return box_1[0] * box_2[0]  # pyright: ignore[reportPossiblyUnboundVariable]
 
 
 if __name__ == "__main__":

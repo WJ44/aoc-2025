@@ -40,7 +40,7 @@ class Puzzle8(Puzzle):
             key=lambda pair: pair[0],
         )
         circuits = []
-        for n in range(self.pairs_to_connect):
+        for _ in range(self.pairs_to_connect):
             _, box_1, box_2 = pairs.pop(0)
             new_circuit = {box_1, box_2}
             joined = []
@@ -78,7 +78,6 @@ class Puzzle8(Puzzle):
             for x in joined:
                 circuits.remove(x)
             circuits.append(new_circuit)
-        counts = sorted([len(circuit) for circuit in circuits], reverse=True)
         return box_1[0] * box_2[0]
 
 

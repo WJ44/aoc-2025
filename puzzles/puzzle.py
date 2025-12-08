@@ -5,6 +5,7 @@ from abc import ABC, abstractmethod
 from contextlib import contextmanager
 from io import TextIOWrapper
 from pathlib import Path
+from time import time
 from typing import Any, Optional
 
 
@@ -32,7 +33,9 @@ class Puzzle(ABC):
         cls.register_puzzle(cls())
 
     @contextmanager
-    def open_input_file(self, file_name: Optional[str] = None, file_path: Optional[Path] = None):
+    def open_input_file(
+        self, file_name: Optional[str] = None, file_path: Optional[Path] = None
+    ):
         """
         Context manager to open the input file.
 
@@ -93,13 +96,20 @@ class Puzzle(ABC):
             file_path: The path to the input file.
         """
         with self.open_input_file(file_name=file_name, file_path=file_path) as file:
+            start_time = time()
             puzzle_input = self.parse_input(file)
+            parse_time = time()
             part_one = self.solve_part_one(puzzle_input)
+            part_one_time = time()
             part_two = self.solve_part_two(puzzle_input)
+            part_two_time = time()
 
             print(f"Day {self.day} solutions:")
             print(f"Solution to part one: \n {part_one}")
             print(f"Solution to part two: \n {part_two}")
+            print(
+                f"Parsing took: {parse_time - start_time}, part one took: {part_one_time - parse_time} and part two took: {part_two_time - part_one_time}"
+            )
             print("")
 
 

@@ -1,7 +1,6 @@
 """Solution for day 8 of Advent of Code 2025."""
 
 from itertools import combinations
-from math import sqrt
 from typing import Any
 
 if __name__ == "__main__":

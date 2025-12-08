@@ -108,7 +108,8 @@ class Puzzle(ABC):
             print(f"Solution to part one: \n {part_one}")
             print(f"Solution to part two: \n {part_two}")
             print(
-                f"Parsing took: {parse_time - start_time}, part one took: {part_one_time - parse_time} and part two took: {part_two_time - part_one_time}"
+                f"Parsing took: {parse_time - start_time}, part one took:"
+                f"{part_one_time - parse_time} and part two took: {part_two_time - part_one_time}"
             )
             print("")
 

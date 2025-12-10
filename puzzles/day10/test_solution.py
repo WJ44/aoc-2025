@@ -14,7 +14,7 @@ class TestDay10(puzzle.BasePuzzleTest):
 
     day = 10
     expected_part_one = 7
-    expected_part_two = None
+    expected_part_two = 33
 
 
 if __name__ == "__main__":

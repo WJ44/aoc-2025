@@ -56,6 +56,7 @@ class Puzzle10(Puzzle):
                     ]
                     if tuple(new_lights) in visited:
                         continue
+                    visited.add(tuple(new_lights))
                     if lights == new_lights:
                         total += presses + 1
                         found = True
@@ -64,13 +65,42 @@ class Puzzle10(Puzzle):
                         queue,
                         (presses + 1, new_lights),
                     )
-
         return total
 
     def solve_part_two(
         self, puzzle_input: list[tuple[list[bool], list[list[int]], list[int]]]
     ) -> int:
-        return 0
+        # TODO: add hueristic, i.e make it A* instead of Dijkstra
+        total = 0
+        for _, buttons, joltages in puzzle_input:
+            print(buttons, joltages)
+            queue = []
+            visited = {tuple([0] * len(joltages))}
+            heappush(queue, (0, [0] * len(joltages)))
+            found = False
+            while not found:
+                presses, current = heappop(queue)
+                for button in buttons:
+                    new = current.copy()
+                    for joltage in button:
+                        new[joltage] += 1
+                    if tuple(new) in visited:
+                        continue
+                    visited.add(tuple(new))
+                    if any(
+                        new_joltage > joltage
+                        for new_joltage, joltage in zip(new, joltages)
+                    ):
+                        continue
+                    if new == joltages:
+                        total += presses + 1
+                        found = True
+                        break
+                    heappush(
+                        queue,
+                        (presses + 1, new),
+                    )
+        return total
 
 
 if __name__ == "__main__":

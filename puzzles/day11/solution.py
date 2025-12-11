@@ -10,19 +10,42 @@ if __name__ == "__main__":
 from puzzles.puzzle import Puzzle  # pylint: disable=wrong-import-position
 
 
-def follow_path(device, path, puzzle_input, found):
-    if device in found:
-        found = found.union(path)
-        return 1
-    if path and device == "out":
-        found = found.union(path)
-        return 1
-    paths = 0
+def find_paths(
+    device: str,
+    goal: str,
+    puzzle_input: dict[str, list[str]],
+    visited: dict[str, int] | None = None,
+    path: set[str] | None = None,
+):
+    """
+    Finds the number of paths from device to goal.
+
+    Args:
+        device: The current device.
+        goal: The device to find
+        puzzle_input: The mapping of devices to outputs.
+        found: The devices we have already found and how often they lead to the goal.
+        path: The path so far.
+    """
+    if visited is None:
+        visited = {}
+    if path is None:
+        path = set()
+    if device in visited:
+        for i in path:
+            visited[i] += visited[device]
+        return 0
+    path.add(device)
+    visited[device] = 0
+    if device == goal:
+        for i in path:
+            visited[i] += 1
+        return 0
+    if device == "out":
+        return 0
     for next_device in puzzle_input[device]:
-        new_path = path.copy()
-        new_path.add(next_device)
-        paths += follow_path(next_device, new_path, puzzle_input, found)
-    return paths
+        find_paths(next_device, goal, puzzle_input, visited, path.copy())
+    return visited[device]
 
 
 class Puzzle11(Puzzle):
@@ -42,13 +65,18 @@ class Puzzle11(Puzzle):
         return puzzle_input
 
     def solve_part_one(self, puzzle_input: dict[str, list[str]]) -> int:
-        total = 0
-        found = set()
-        total += follow_path("you", {"you"}, puzzle_input, found)
-        return total
+        return find_paths("you", "out", puzzle_input)
 
     def solve_part_two(self, puzzle_input: dict[str, list[str]]) -> int:
-        return 0
+        return find_paths("svr", "dac", puzzle_input) * find_paths(
+            "dac", "fft", puzzle_input
+        ) * find_paths("fft", "out", puzzle_input) + find_paths(
+            "svr", "fft", puzzle_input
+        ) * find_paths(
+            "fft", "dac", puzzle_input
+        ) * find_paths(
+            "dac", "out", puzzle_input
+        )
 
 
 if __name__ == "__main__":

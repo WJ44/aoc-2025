@@ -9,12 +9,21 @@ if __name__ == "__main__":
 from puzzles import puzzle  # pylint: disable=wrong-import-position
 
 
-class TestDay11(puzzle.BasePuzzleTest):
-    """Test Day 11: Example test case."""
+class TestDay11Part1(puzzle.BasePuzzleTest):
+    """Test Day 11: Example test case for part 1."""
 
     day = 11
     expected_part_one = 5
     expected_part_two = None
+
+
+class TestDay11Part2(puzzle.BasePuzzleTest):
+    """Test Day 11: Example test case for part 2."""
+
+    day = 11
+    expected_part_one = None
+    expected_part_two = 2
+    test_file = "test2.txt"
 
 
 if __name__ == "__main__":

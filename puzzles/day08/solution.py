@@ -39,7 +39,7 @@ class Puzzle8(Puzzle):
             ],
             key=lambda pair: pair[0],
         )
-        circuits = []
+        circuits: list[set[tuple[int, int, int]]] = []
         for _ in range(self.pairs_to_connect):
             _, box_1, box_2 = pairs.pop(0)
             new_circuit = {box_1, box_2}
@@ -66,10 +66,8 @@ class Puzzle8(Puzzle):
             ],
             key=lambda pair: pair[0],
         )
-        circuits = []
-        while len(circuits) != 1 or sum(len(circuit) for circuit in circuits) < len(
-            puzzle_input
-        ):
+        circuits: list[set[tuple[int, int, int]]] = []
+        while len(circuits) != 1 or sum(len(circuit) for circuit in circuits) < len(puzzle_input):
             _, box_1, box_2 = pairs.pop(0)
             new_circuit = {box_1, box_2}
             joined = []
